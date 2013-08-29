@@ -54,6 +54,7 @@ func main() {
 		"#cccc99",
 		"#999966",
 		"#646464",
+		"#663366",
 	}
 
 	for _, color := range colors {
