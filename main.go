@@ -41,26 +41,27 @@ func main() {
 
 	fuzz := float64(10) // should be 10%
 
-	// our special colors we want to filter
-	filter := []*imagick.PixelWand{
-		imagick.NewPixelWand(),
-		imagick.NewPixelWand(),
-		imagick.NewPixelWand(),
-		imagick.NewPixelWand(),
+	colors := []string{
+		"#3030CE",
+		"#04e9e7",
+		"#019ff4",
+		"#0300f4",
+		"#a9a879",
+		"#777777",
+		"#7a4679",
+		"#aa7ca9",
+		"#d7acd6",
+		"#cccc99",
+		"#999966",
+		"#646464",
 	}
 
-	filter[0].SetColor("#3030CE")
-	defer filter[0].Destroy()
-	filter[1].SetColor("#04e9e7")
-	defer filter[1].Destroy()
-	filter[2].SetColor("#019ff4")
-	defer filter[2].Destroy()
-	filter[3].SetColor("#0300f4")
-	defer filter[3].Destroy()
+	for _, color := range colors {
 
-	for _, f := range filter {
-
-		mw.TransparentPaintImage(f, 0, fuzz, false)
+		pixelWand := imagick.NewPixelWand()
+		pixelWand.SetColor(color)
+		mw.TransparentPaintImage(pixelWand, 0, fuzz, false)
+		defer pixelWand.Destroy()
 	}
 
 	mw.BlurImage(2, 2)
