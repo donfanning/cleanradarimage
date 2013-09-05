@@ -5,6 +5,11 @@
 /*
 	This program will take a NOAA radar image and remove the noise colors.
 
+	Ardan Studios
+	12973 SW 112 ST, Suite 153
+	Miami, FL 33186
+	bill@ardanstudios.com
+
 	// Install Binary Package C Library Procedure
 	mkdir ~/temp
 	cd ~/temp

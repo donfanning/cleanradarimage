@@ -24,14 +24,11 @@ bill@ardanstudios.com
 	remove ImageMagick-6.8.6-9
 	pkg-config --cflags --libs MagickWand
 
-	-- For Development Environment Only
-	export GOPATH=$HOME/<My New Folder Location>
+	-- Go Code
+	export GOPATH=$HOME/goinggo
 	go get github.com/gographics/imagick/imagick
-
-	-- Make sure these environment variables are set
-	MAGICK_HOME=$HOME/Spaces/PublicPackages/ImageMagick-6.8.6
-	DYLD_LIBRARY_PATH=$MAGICK_HOME/lib/
-	PKG_CONFIG_PATH=$HOME/Spaces/PublicPackages/ImageMagick-6.8.6/lib/pkgconfig
-
-	cleanradarimage source.gif out.gif
-
+	go get github.com/goinggo/cleanradarimage
+	
+	-- Run Program
+	cd $GOPATH/bin
+	./cleanradarimage source.gif out.gif
