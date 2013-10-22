@@ -46,15 +46,12 @@ import (
 
 // CleanImage removes noise from the image
 func main() {
-
 	if len(os.Args) != 3 {
-
 		fmt.Println("cleanradarimage source.gif out.gif")
 		return
 	}
 
 	if FileExists(os.Args[2]) == true {
-
 		os.Remove(os.Args[2])
 	}
 
@@ -87,7 +84,6 @@ func main() {
 	}
 
 	for _, color := range colors {
-
 		pixelWand := imagick.NewPixelWand()
 		pixelWand.SetColor(color)
 		mw.TransparentPaintImage(pixelWand, 0, fuzz, false)
@@ -95,12 +91,10 @@ func main() {
 	}
 
 	mw.BlurImage(2, 2)
-
 	mw.WriteImage(os.Args[2])
 }
 
 func FileExists(path string) bool {
-
 	_, err := os.Stat(path)
 
 	if err == nil {
