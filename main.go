@@ -83,14 +83,15 @@ func main() {
 		"#663366",
 	}
 
+	pixelWand := imagick.NewPixelWand()
+	defer pixelWand.Destroy()
+
 	for _, color := range colors {
-		pixelWand := imagick.NewPixelWand()
 		pixelWand.SetColor(color)
 		mw.TransparentPaintImage(pixelWand, 0, fuzz, false)
-		defer pixelWand.Destroy()
 	}
 
-	mw.BlurImage(2, 2)
+	//mw.BlurImage(2, 2)
 	mw.WriteImage(os.Args[2])
 }
 
