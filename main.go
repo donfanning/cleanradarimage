@@ -65,6 +65,7 @@ func main() {
 		log.Fatal(err)
 	}
 
+	var err error
 	fuzz := float64(10) // should be 10%
 
 	colors := []string{
@@ -88,15 +89,10 @@ func main() {
 		pixelWand.Destroy()
 	}()
 
+	// Remove unwanted colors
 	for _, color := range colors {
 		pixelWand.SetColor(color)
 		mw.TransparentPaintImage(pixelWand, 0, fuzz, false)
-	}
-
-	// Spread Image
-	err := mw.SpreadImage(11)
-	if err != nil {
-		return
 	}
 
 	// Wave the image
@@ -118,7 +114,7 @@ func main() {
 	}
 
 	// Blue the image
-	err = mw.GaussianBlurImage(15, 5)
+	err = mw.GaussianBlurImage(5, 2)
 	if err != nil {
 		return
 	}
