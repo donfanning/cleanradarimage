@@ -84,14 +84,48 @@ func main() {
 	}
 
 	pixelWand := imagick.NewPixelWand()
-	defer pixelWand.Destroy()
+	defer func() {
+		pixelWand.Destroy()
+	}()
 
 	for _, color := range colors {
 		pixelWand.SetColor(color)
 		mw.TransparentPaintImage(pixelWand, 0, fuzz, false)
 	}
 
-	//mw.BlurImage(2, 2)
+	// Spread Image
+	err := mw.SpreadImage(11)
+	if err != nil {
+		return
+	}
+
+	// Blue the image
+	err = mw.GaussianBlurImage(10, 2)
+	if err != nil {
+		return
+	}
+
+	// Wave the image
+	err = mw.WaveImage(5, 100)
+	if err != nil {
+		return
+	}
+
+	// Crop the image
+	err = mw.CropImage(600, 540, 0, 10)
+	if err != nil {
+		return
+	}
+
+	// Resize the image
+	err = mw.ResizeImage(600, 530, imagick.FILTER_BOX, 0)
+	if err != nil {
+		return
+	}
+
+	// Reset the iterator for the write
+	mw.ResetIterator()
+
 	mw.WriteImage(os.Args[2])
 }
 
