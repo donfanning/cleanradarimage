@@ -99,12 +99,6 @@ func main() {
 		return
 	}
 
-	// Blue the image
-	err = mw.GaussianBlurImage(10, 2)
-	if err != nil {
-		return
-	}
-
 	// Wave the image
 	err = mw.WaveImage(5, 100)
 	if err != nil {
@@ -119,6 +113,12 @@ func main() {
 
 	// Resize the image
 	err = mw.ResizeImage(600, 530, imagick.FILTER_BOX, 0)
+	if err != nil {
+		return
+	}
+
+	// Blue the image
+	err = mw.GaussianBlurImage(15, 5)
 	if err != nil {
 		return
 	}
