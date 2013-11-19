@@ -40,12 +40,15 @@ package main
 import (
 	"fmt"
 	"github.com/gographics/imagick/imagick"
+	"io/ioutil"
 	"log"
 	"os"
 )
 
 // CleanImage removes noise from the image
 func main() {
+	var err error
+
 	if len(os.Args) != 3 {
 		fmt.Println("cleanradarimage source.gif out.gif")
 		return
@@ -61,11 +64,20 @@ func main() {
 	mw := imagick.NewMagickWand()
 	defer mw.Destroy()
 
-	if err := mw.ReadImage(os.Args[1]); err != nil {
-		log.Fatal(err)
+	imageBinary, err := ioutil.ReadFile(os.Args[1])
+	if err != nil {
+		log.Fatalf("Read File: %s", err)
 	}
 
-	var err error
+	//if err := mw.ReadImage(os.Args[1]); err != nil {
+	//	log.Fatal(err)
+	//}
+
+	err = mw.ReadImageBlob(imageBinary)
+	if err != nil {
+		log.Fatalf("Read Image: %s", err)
+	}
+
 	fuzz := float64(10) // should be 10%
 
 	colors := []string{
