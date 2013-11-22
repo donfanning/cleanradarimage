@@ -125,8 +125,20 @@ func main() {
 		return
 	}
 
+	// Equalize
+	err = mw.EqualizeImage()
+	if err != nil {
+		return
+	}
+
 	// Blue the image
 	err = mw.GaussianBlurImage(5, 2)
+	if err != nil {
+		return
+	}
+
+	// Brightness
+	err = mw.BrightnessContrastImage(-30, 30)
 	if err != nil {
 		return
 	}
