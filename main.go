@@ -132,13 +132,13 @@ func main() {
 	}
 
 	// Blue the image
-	err = mw.GaussianBlurImage(5, 2)
+	err = mw.GaussianBlurImage(4, 2)
 	if err != nil {
 		return
 	}
 
 	// Brightness
-	err = mw.BrightnessContrastImage(-30, 30)
+	err = mw.BrightnessContrastImage(-20, 30)
 	if err != nil {
 		return
 	}
