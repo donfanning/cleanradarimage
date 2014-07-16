@@ -3,8 +3,6 @@
 // license that can be found in the LICENSE file.
 
 /*
-	This program will take a NOAA radar image and remove the noise colors.
-
 	Ardan Studios
 	12973 SW 112 ST, Suite 153
 	Miami, FL 33186
@@ -35,6 +33,8 @@
 
 	cleanradarimage source.gif out.gif
 */
+
+// Package main will take a NOAA radar image and remove the noise colors.
 package main
 
 import (
@@ -45,16 +45,14 @@ import (
 	"os"
 )
 
-// CleanImage removes noise from the image
+// main removes noise from the image.
 func main() {
-	var err error
-
 	if len(os.Args) != 3 {
 		fmt.Println("cleanradarimage source.gif out.gif")
 		return
 	}
 
-	if FileExists(os.Args[2]) == true {
+	if fileExists(os.Args[2]) == true {
 		os.Remove(os.Args[2])
 	}
 
@@ -108,38 +106,32 @@ func main() {
 	}
 
 	// Wave the image
-	err = mw.WaveImage(5, 100)
-	if err != nil {
+	if err := mw.WaveImage(5, 100); err != nil {
 		return
 	}
 
 	// Crop the image
-	err = mw.CropImage(600, 540, 0, 10)
-	if err != nil {
+	if err := mw.CropImage(600, 540, 0, 10); err != nil {
 		return
 	}
 
 	// Resize the image
-	err = mw.ResizeImage(600, 530, imagick.FILTER_BOX, 0)
-	if err != nil {
+	if err := mw.ResizeImage(600, 530, imagick.FILTER_BOX, 0); err != nil {
 		return
 	}
 
 	// Equalize
-	err = mw.EqualizeImage()
-	if err != nil {
+	if err := mw.EqualizeImage(); err != nil {
 		return
 	}
 
 	// Blue the image
-	err = mw.GaussianBlurImage(4, 2)
-	if err != nil {
+	if err := mw.GaussianBlurImage(4, 2); err != nil {
 		return
 	}
 
 	// Brightness
-	err = mw.BrightnessContrastImage(-20, 30)
-	if err != nil {
+	if err := mw.BrightnessContrastImage(-20, 30); err != nil {
 		return
 	}
 
@@ -149,10 +141,9 @@ func main() {
 	mw.WriteImage(os.Args[2])
 }
 
-func FileExists(path string) bool {
-	_, err := os.Stat(path)
-
-	if err == nil {
+// fileExists tests for the existance of the specified file on disk.
+func fileExists(path string) bool {
+	if _, err := os.Stat(path); err == nil {
 		return true
 	}
 
